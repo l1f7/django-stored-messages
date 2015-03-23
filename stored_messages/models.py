@@ -19,9 +19,14 @@ class Message(models.Model):
     level = models.IntegerField()
     tags = models.TextField()
     date = models.DateTimeField(default=timezone.now)
+    sender = models.ForeignKey(AUTH_USER_MODEL, blank=True, null=True)
+    thread = models.ForeignKey("self", blank=True, null=True, related_name='message_thread')
 
     def __str__(self):
         return self.message
+
+    def get_thread(self):
+        return self.objects.filter(thread=self.id).exclude(id=self.id)
 
 
 @python_2_unicode_compatible

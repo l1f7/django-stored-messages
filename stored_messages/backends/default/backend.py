@@ -37,8 +37,8 @@ class DefaultBackend(StoredMessagesBackend):
         except Inbox.DoesNotExist:
             raise MessageDoesNotExist("Message with id %s does not exist" % msg_id)
 
-    def create_message(self, level, msg_text, extra_tags=''):
-        m_instance = Message.objects.create(message=msg_text, level=level, tags=extra_tags)
+    def create_message(self, level, msg_text, sender='', thread='', extra_tags=''):
+        m_instance = Message.objects.create(message=msg_text, level=level, sender=sender, thread=thread, tags=extra_tags)
         return m_instance
 
     def archive_store(self, users, msg_instance):
