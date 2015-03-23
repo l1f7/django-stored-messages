@@ -8,6 +8,7 @@ from django.utils.translation import ugettext_lazy as _
 from .compat import AUTH_USER_MODEL
 from .settings import stored_messages_settings
 
+# from posts.models import Post
 
 @python_2_unicode_compatible
 class Message(models.Model):
@@ -21,6 +22,7 @@ class Message(models.Model):
     date = models.DateTimeField(default=timezone.now)
     sender = models.ForeignKey(AUTH_USER_MODEL, blank=True, null=True)
     thread = models.ForeignKey("self", blank=True, null=True, related_name='message_thread')
+    post = models.ForeignKey("posts.Post", blank=True, null=True, related_name='message_post')
 
     def __str__(self):
         return self.message
