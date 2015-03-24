@@ -9,8 +9,12 @@ class MessageAdmin(admin.ModelAdmin):
     '''
         Admin View for Message
     '''
-    raw_id_fields = ('sender', 'thread',)
-    readonly_fields = ('',)
+    fieldsets = (
+        (None, {
+            'fields': ('message', 'level', 'tags', 'date', 'sender', 'thread', 'post')
+        }),
+    )
+    raw_id_fields = ('sender', 'thread', 'post',)
     search_fields = ['sender']
 
 admin.site.register(Message, MessageAdmin)
